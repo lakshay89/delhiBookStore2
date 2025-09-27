@@ -1,0 +1,25 @@
+# robots.txt for DelhiBookStore - Luxury Premium Books (International E-commerce)
+
+# Allow all reputable web crawlers to access all public content
+User-agent: *
+Allow: /
+
+# Disallow specific paths to conserve crawl budget and avoid indexing non-essential/duplicate content.
+# Adjust these based on your actual site structure and needs.
+Disallow: /admin/                # Admin panels, dashboards
+Disallow: /checkout/thank-you/  # Post-purchase thank you pages
+Disallow: /cart/                 # Shopping cart page
+Disallow: /user/                 # User profile/account pages (if not intended for public search)
+Disallow: /search/?* # Internal search results pages (can cause duplicate content issues)
+Disallow: /*?sort=* # Disallow crawling of sorting parameters (if canonicals aren't enough)
+Disallow: /*?filter=* # Disallow crawling of filter parameters (if canonicals aren't enough)
+Disallow: /api/                  # Your API endpoints
+
+# Specify the path to your main XML sitemap. This is CRITICAL.
+# Make sure your sitemap dynamically includes all your book pages and categories.
+Sitemap: https://www.delhibookstore.com/sitemap.xml
+
+# If you have specific sitemaps for different categories or locales, list them too:
+# Sitemap: https://www.delhibookstore.com/sitemap-books.xml
+# Sitemap: https://www.delhibookstore.com/sitemap-genres.xml
+# Sitemap: https://www.delhibookstore.com/sitemap-authors.xml

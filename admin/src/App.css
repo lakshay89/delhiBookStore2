@@ -1,0 +1,25 @@
+.allowed{
+    cursor: pointer;
+}
+.not-allowed{
+    cursor: not-allowed;
+}
+.circle-color{
+    height: 20px;
+    width: 100%;
+}
+
+/* Custom NProgress style (add to your main CSS file) */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #3b82f6; /* Tailwind blue-500 */
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}

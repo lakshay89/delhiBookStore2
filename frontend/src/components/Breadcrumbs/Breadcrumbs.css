@@ -1,0 +1,22 @@
+.custom-breadcrumb {
+  color: #000000 !important; /* fallback color */
+  font-weight: 500;
+}
+
+.custom-breadcrumb .breadcrumb-item,
+.custom-breadcrumb .breadcrumb-item a,
+.custom-breadcrumb .breadcrumb-item span {
+  color: #000000 !important;  /* breadcrumb text color */
+  text-decoration: none !important;
+}
+
+.custom-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: #000000 !important; /* separator "/" color */
+  content: "/"; /* ensure slash always shows */
+  margin: 0 6px;
+}
+
+.custom-breadcrumb .breadcrumb-item.active {
+  color: #ff6600 !important; /* active item darker for visibility */
+  font-weight: 600;
+}
