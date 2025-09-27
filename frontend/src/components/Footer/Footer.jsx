@@ -101,7 +101,7 @@ const Footer = () => {
           <ul className="space-y-2 text-gray-600">
             {categories.slice(0, 5).map((category, id) => (
               <li className="hover:underline hover:text-black" key={id}>
-                <Link href={`/pages/categories/${category._id}`}>
+                <Link href={`/categories/${category._id}`}>
                   {category.Parent_name}
                 </Link>
               </li>
@@ -115,23 +115,23 @@ const Footer = () => {
           <ul className="space-y-2 text-gray-600">
             <li className="hover:underline hover:text-black">
               {" "}
-              <Link href="/pages/shop">Shop Books</Link>
+              <Link href="/shop">Shop Books</Link>
             </li>
             <li className="hover:underline hover:text-black">
               {" "}
-              <Link href="/pages/featurebook">Feature Books</Link>
+              <Link href="/featurebook">Feature Books</Link>
             </li>
             <li className="hover:underline hover:text-black">
               {" "}
-              <Link href="/pages/bestSellerbook">Best Sellers</Link>
+              <Link href="/bestSellerbook">Best Sellers</Link>
             </li>
             {/* <li className="hover:underline hover:text-black">
               {" "}
-              <Link href="/pages/blog">Blog</Link>
+              <Link href="/blog">Blog</Link>
             </li> */}
             <li className="hover:underline hover:text-black">
               {" "}
-              <Link href="/pages/contact">Contact US</Link>
+              <Link href="/contact">Contact US</Link>
             </li>
           </ul>
         </div>
@@ -145,7 +145,7 @@ const Footer = () => {
                 className="hover:underline hover:text-black line-clamp-1"
                 key={id}
               >
-                <Link href={`/pages/shop/${pro._id}`}>{pro.title}</Link>
+                <Link href={`/shop/${pro._id}`}>{pro.title}</Link>
               </li>
             ))}
           </ul>
@@ -186,28 +186,28 @@ const Footer = () => {
         </div>
         <div className="flex flex-wrap space-x-3 space-y-4 md:space-y-0 mt-2 md:mt-0">
           <Link
-            href="/pages/privacy-policy"
+            href="/privacy-policy"
             className="text-gray-600 hover:text-gray-700"
           >
             Privacy Policy
           </Link>
           <span className="text-gray-600">|</span>
           <Link
-            href="/pages/legal-policy"
+            href="/legal-policy"
             className="text-gray-600 hover:text-gray-700"
           >
             Legal Policy
           </Link>
           <span className="text-gray-600">|</span>
           <Link
-            href="/pages/sales-policy"
+            href="/sales-policy"
             className="text-gray-600 hover:text-gray-700"
           >
             Sales Policy
           </Link>
           <span className="text-gray-600">|</span>
           {/* <Link
-            href="/pages/return-refund-policy"
+            href="/return-refund-policy"
             className="text-gray-600 hover:text-gray-700"
           >
             Return & Refund Policy
@@ -215,7 +215,7 @@ const Footer = () => {
           <span className="text-gray-600">|</span> */}
 
           <Link
-            href="/pages/shipping-policy"
+            href="/shipping-policy"
             className="text-gray-600 hover:text-gray-700"
           >
             Shipping Policy

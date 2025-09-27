@@ -25,8 +25,8 @@ import { verifyUser } from "@/app/redux/features/auth/loginSlice";
 
 import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
-import HomeLinking from "../HomeLinking/HomeLinking";
-import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+// import HomeLinking from "../HomeLinking/HomeLinking";
+// import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
   const dispatch = useDispatch();
@@ -161,7 +161,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      <Breadcrumbs />
+      {/* <Breadcrumbs /> */}
       {/* Header */}
       {/* <div className="max-w-7xl mx-auto px-4 py-4">
         <HomeLinking category={'Best Selling Books'}/>
@@ -177,8 +177,8 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
           </p>
         </div>
 
-        {pathname !== "/pages/bestSellerbook" && (
-          <Link href="/pages/bestSellerbook">
+        {pathname !== "/bestSellerbook" && (
+          <Link href="/bestSellerbook">
             <button className="view-all-btn cursor-pointer">
               View All <ArrowRight size={16} />
             </button>
@@ -228,7 +228,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
                   {inWishlist ? "❤️" : <Heart size={16} />}
                 </div>
 
-                <Link href={`/pages/shop/${product._id}`}>
+                <Link href={`/shop/${product._id}`}>
                   <div className="h-35 flex justify-center m-auto items-center">
                     <Image
                       src={
@@ -248,7 +248,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
               {/* Product Details */}
               <div className="w-full md:w-2/3 flex flex-col justify-between">
                 <div>
-                  <Link href={`/pages/shop/${product._id}`}>
+                  <Link href={`/shop/${product._id}`}>
                     <h3 className="mt-2 text-sm md:text-md font-normal md:font-semibold line-clamp-2 hover:underline">
                       {product.title}
                     </h3>

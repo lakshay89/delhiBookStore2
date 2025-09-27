@@ -29,7 +29,7 @@ const FilterCatgory3 = () => {
       {visibleCategories?.map((category) => (
         <Link
           key={category._id}
-          href={`/pages/shop/productBysubcategory/${category.category?._id}`}
+          href={`/shop/productBysubcategory/${category.category?._id}`}
           className="block group"
         >
           <div className="relative overflow-hidden rounded-xl shadow-lg">

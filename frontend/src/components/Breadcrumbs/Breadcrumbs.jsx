@@ -1,56 +1,47 @@
-// "use client";
-// import Link from "next/link";
-// import { usePathname, useSearchParams } from "next/navigation";
-// import "./Breadcrumbs.css";
-
-// export default function Breadcrumbs({ productTitle, categoryName, subCategoryName }) {
-//   const pathname = usePathname();
-//   const searchParams = useSearchParams();
-
-//   const queryCategoryName = searchParams.get("name");
-//   const catName = categoryName || queryCategoryName || null;
-
-//   const originalSegments = pathname.split("/").filter(Boolean);
-
-//   const skip = ["pages"];
-//   let pathArray = originalSegments.filter((s) => !skip.includes(s.toLowerCase()));
-
-//   return (
-//     <nav aria-label="breadcrumb" className="mb-10">
-//       <ol className="breadcrumb custom-breadcrumb flex gap-2">
-//         <li className="breadcrumb-item">
-//           <Link href="/">Home</Link>
-//         </li>
-
-//         {/* Category breadcrumb */}
-//         {catName && (
-//           <li className="breadcrumb-item">
-//             <span>{catName}</span>
-//           </li>
-//         )}
-
-//         {/* Subcategory breadcrumb */}
-//         {subCategoryName && (
-//           <li className="breadcrumb-item active" aria-current="page">
-//             <span>{subCategoryName}</span>
-//           </li>
-//         )}
-
-//         {/* Product breadcrumb */}
-//         {!subCategoryName && productTitle && (
-//           <li className="breadcrumb-item active" aria-current="page">
-//             <span>{productTitle}</span>
-//           </li>
-//         )}
-//       </ol>
-//     </nav>
-//   );
-// }
 "use client";
+
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import "./Breadcrumbs.css";
 
-export default function Breadcrumbs({ categoryName, subCategoryName, productTitle }) {
+export default function Breadcrumbs({
+  categoryName,
+  subCategoryName,
+  productTitle,
+}) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // read the ?name= param for nicer label
+  const queryName = searchParams.get("name");
+
+  // if props passed, use them; else derive from URL
+  let crumbs = [];
+
+  if (categoryName) {
+    crumbs.push({ label: categoryName, href: null });
+  } else if (subCategoryName) {
+    crumbs.push({ label: subCategoryName, href: null });
+  } else if (productTitle) {
+    crumbs.push({ label: productTitle, href: null });
+  } else if (queryName) {
+    // show only decoded name from query param
+    crumbs.push({
+      label: decodeURIComponent(queryName),
+      href: null,
+    });
+  } else {
+    // fallback: build from pathname segments
+    const segments = pathname.split("/").filter(Boolean);
+    segments.forEach((segment, idx) => {
+      const href = "/" + segments.slice(0, idx + 1).join("/");
+      crumbs.push({
+        label: decodeURIComponent(segment),
+        href: idx === segments.length - 1 ? null : href,
+      });
+    });
+  }
+
   return (
     <nav aria-label="breadcrumb" className="mb-10">
       <ol className="breadcrumb custom-breadcrumb flex gap-2">
@@ -59,26 +50,17 @@ export default function Breadcrumbs({ categoryName, subCategoryName, productTitl
           <Link href="/">Home</Link>
         </li>
 
-        {/* Category */}
-        {categoryName && (
-          <li className="breadcrumb-item">
-            <span>{categoryName}</span>
+        {crumbs.map((c, i) => (
+          <li
+            key={i}
+            className={`breadcrumb-item ${
+              i === crumbs.length - 1 ? "active" : ""
+            }`}
+            aria-current={i === crumbs.length - 1 ? "page" : undefined}
+          >
+            {c.href ? <Link href={c.href}>{c.label}</Link> : <span>{c.label}</span>}
           </li>
-        )}
-
-        {/* Subcategory */}
-        {subCategoryName && (
-          <li className="breadcrumb-item">
-            <span>{subCategoryName}</span>
-          </li>
-        )}
-
-        {/* Product */}
-        {productTitle && (
-          <li className="breadcrumb-item active" aria-current="page">
-            <span>{productTitle}</span>
-          </li>
-        )}
+        ))}
       </ol>
     </nav>
   );

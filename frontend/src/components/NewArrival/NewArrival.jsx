@@ -262,7 +262,7 @@ const NewArrival = () => {
                     )}
                   </div>
 
-                  <Link href={`/pages/shop/${product._id}`}>
+                  <Link href={`/shop/${product._id}`}>
                     <div className="w-30 h-60 md:w-50 flex justify-center m-auto items-center mb-2">
                       <Image
                         src={
@@ -278,7 +278,7 @@ const NewArrival = () => {
                     </div>
                   </Link>
 
-                  <Link href={`/pages/shop/${product._id}`}>
+                  <Link href={`/shop/${product._id}`}>
                     <h3 className="mt-2 text-sm md:text-md font-normal md:font-semibold line-clamp-1 hover:underline">
                       {product.title}
                     </h3>
