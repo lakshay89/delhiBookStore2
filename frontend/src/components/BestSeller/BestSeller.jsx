@@ -25,6 +25,7 @@ import { verifyUser } from "@/app/redux/features/auth/loginSlice";
 
 import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 // import HomeLinking from "../HomeLinking/HomeLinking";
 // import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
@@ -161,7 +162,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      {/* <Breadcrumbs /> */}
+      <Breadcrumbs />
       {/* Header */}
       {/* <div className="max-w-7xl mx-auto px-4 py-4">
         <HomeLinking category={'Best Selling Books'}/>

@@ -7,7 +7,6 @@ import "swiper/css/navigation";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import axiosInstance from "../../app/redux/features/axiosInstance";
-// import axiosInstance from "../../redux/features/axiosInstance";
 
 // Local fallback/testimonial data
 import testi1 from "../../app/Images/DowloadImage/Testi1.jpg";
@@ -19,56 +18,57 @@ const staticTestimonials = [
   {
     fullName: "Anjali Sharma",
     rating: 4.5,
-    // count: 58,
-    masseg: "Amazing collection of academic and reference books. Fast delivery and great packaging!",
+    masseg:
+      "Amazing collection of academic and reference books. Fast delivery and great packaging!",
     profileImage: testi1,
   },
   {
     fullName: "Priya Verma",
     rating: 4,
-    // count: 46,
-    masseg: "I found all my engineering textbooks at discounted prices. Highly recommend this bookstore!",
+    masseg:
+      "I found all my engineering textbooks at discounted prices. Highly recommend this bookstore!",
     profileImage: testi2,
   },
   {
     fullName: "Rani Mehra",
     rating: 4.2,
-    // count: 51,
-    masseg: "Books are genuine and in perfect condition. A great place to shop for competitive exam prep.",
+    masseg:
+      "Books are genuine and in perfect condition. A great place to shop for competitive exam prep.",
     profileImage: testi3,
   },
   {
     fullName: "Sunita Rani",
     rating: 3.8,
-    // count: 39,
-    masseg: "Delivery was a bit delayed, but the book quality and variety made up for it.",
+    masseg:
+      "Delivery was a bit delayed, but the book quality and variety made up for it.",
     profileImage: testi4,
   },
 ];
 
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
-
-  // Fetch all reviews from DB
-  const fetchAllReviews = async () => {
-    try {
-      const response = await axiosInstance.get("/feedback/get-all-feedback");
-      if (response?.data?.success === true) {
-        const activeReviews = response.data.feedback.filter(
-          (item) => item?.isActive === true
-        );
-        setReviews(activeReviews || []);
-      }
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
-  };
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
+    const fetchAllReviews = async () => {
+      try {
+        const res = await axiosInstance.get("/feedback/get-all-feedback");
+        if (res?.data?.success === true) {
+          const activeReviews = res.data.feedback.filter(
+            (item) => item?.isActive === true
+          );
+          setReviews(activeReviews || []);
+        }
+      } catch (err) {
+        console.error("Error fetching reviews:", err.message);
+        setFetchError(err.message);
+      }
+    };
+
     fetchAllReviews();
   }, []);
 
-  // Merge static + dynamic
+  // Merge static + dynamic reviews
   const allTestimonials = [...staticTestimonials, ...reviews];
 
   return (
@@ -78,6 +78,11 @@ const Testimonial = () => {
         <p className="text-sm text-gray-500">
           Honest feedback from our valued customers.
         </p>
+        {fetchError && (
+          <p className="text-xs text-red-500">
+            Couldn’t load live reviews — showing static testimonials instead.
+          </p>
+        )}
       </div>
 
       <Swiper
@@ -85,10 +90,7 @@ const Testimonial = () => {
         spaceBetween={10}
         navigation
         slidesPerView={1}
-        breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 4 },
-        }}
+        breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         loop
       >
@@ -125,9 +127,7 @@ const Testimonial = () => {
                     />
                   ))}
                   {count && (
-                    <span className="text-xs text-gray-600 ml-1">
-                      {count}
-                    </span>
+                    <span className="text-xs text-gray-600 ml-1">{count}</span>
                   )}
                 </div>
 
