@@ -104,7 +104,7 @@ export default function AllSubCategory() {
   return (
     <section className="w-full py-8 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-    <Breadcrumbs />
+    <Breadcrumbs  />
 
         {subCategories.length > 0 ? <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">

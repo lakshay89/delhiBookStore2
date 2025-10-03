@@ -231,7 +231,7 @@ export default function AllSubCategory() {
     }
   }, [dispatch, categoryId, initialLimit, initialPage, sort]);
 
-  /** ✅ Redirect if no data (after 2s) */
+  // /** ✅ Redirect if no data (after 2s) */
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -251,7 +251,8 @@ export default function AllSubCategory() {
   }, [loading, error, subCategories, products, router, categoryId]);
 
   /** ✅ Loading UI */
-  if (loading || loadingProducts) {
+  if ((!subCategories || subCategories.length === 0) &&
+    (!products || products?.length === 0) && loading) {
     return (
       <section className="w-full py-8 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto flex justify-center">
@@ -264,7 +265,7 @@ export default function AllSubCategory() {
   /** ✅ No data yet */
   if (
     (!subCategories || subCategories.length === 0) &&
-    (!products || products.length === 0)
+    (!products || products?.length === 0)
   ) {
     return (
       <section className="w-full py-8 px-4 bg-gray-50">
@@ -279,7 +280,7 @@ export default function AllSubCategory() {
   const visibleCategories = [...subCategories].sort((a, b) =>
     a?.SubCategoryName?.localeCompare(b?.SubCategoryName)
   );
-
+  console.log("ZZZZZZZZZ:==>", products, subCategories)
   return (
     <section className="w-full py-8 px-4 bg-gray-50">
       {/* Pass category name to breadcrumbs */}

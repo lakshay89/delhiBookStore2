@@ -18,7 +18,7 @@ const ShopBanner = () => {
           
         </div>
         <div className="pt-5">
-           <Breadcrumbs />
+           {/* <Breadcrumbs /> */}
         </div>
       </div>
      

@@ -4,7 +4,7 @@ export const serverUrl = "http://localhost:14000"
 
 const axiosInstance = axios.create({
   baseURL: `${serverUrl}/api/v1`,
-  withCredentials: true, 
+  withCredentials: true,
   headers: { "Content-Type": "application/json", },
 });
 
@@ -26,4 +26,5 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
-export default axiosInstance;
+export default axiosInstance ;
+
