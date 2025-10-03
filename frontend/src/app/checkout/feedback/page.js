@@ -1,5 +1,5 @@
 "use client";
-import axiosInstance from "../../../redux/features/axiosInstance";
+import axiosInstance from "../../redux/features/axiosInstance";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

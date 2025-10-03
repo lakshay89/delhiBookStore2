@@ -4,8 +4,8 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 // ✅ Use NEXT_PUBLIC_API_URL (defined in .env.local)
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function generateMetadata({ params, searchParams }) {
-  const rawName = searchParams?.name;
+export async function generateMetadata({ params }) {
+  const rawName = "searchParams?.name";
 
   const categoryName = rawName
     ? decodeURIComponent(rawName).replace(/-/g, " ")
@@ -17,9 +17,9 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-export default async function CategoryPage({ params, searchParams }) {
+export default async function CategoryPage({ params }) {
   const { id } = params;
-  const rawName = searchParams?.name;
+  const rawName = "searchParams?.name;";
 
   const categoryName = rawName
     ? decodeURIComponent(rawName).replace(/-/g, " ")

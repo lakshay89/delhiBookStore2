@@ -203,9 +203,9 @@ export default function Cart() {
 
   const handleCheckout = () => {
     if (!user?.email || user?.email === null || user?.email === undefined) {
-      router.push("/pages/login");
+      router.push("/login");
     } else {
-      router.push("/pages/checkout");
+      router.push("/checkout");
     }
   };
   if (cartItemsValue?.length === 0) {
@@ -221,7 +221,7 @@ export default function Cart() {
           <p className="text-sm text-black font-semibold">
             Start exploring and add items you like!
           </p>
-          <Link href="/pages/shop">
+          <Link href="/shop">
             <button className="mt-4 black-btn cursor-pointer">
               Continue to Shopping
             </button>
@@ -262,7 +262,7 @@ export default function Cart() {
                 >
                   {/* Image */}
                   <div className="w-16 md:w-20 flex-shrink-0">
-                    <Link href={`/pages/shop/${item?.productId?._id ?? item?.id}`}>
+                    <Link href={`/shop/${item?.productId?._id ?? item?.id}`}>
                       <Image
                         src={
                           item?.image

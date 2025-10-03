@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
-import Dashboard from "../../Pages/Dashboard/Dashboard";
+import Dashboard from "../../Dashboard/Dashboard";
 import AllProduct from "../../Pages/Products/AllProduct";
 import AddProduct from "../../Pages/Products/AddProduct";
 import AllVoucher from "../../Pages/Vouchers/AllVoucher";

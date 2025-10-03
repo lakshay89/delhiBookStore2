@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import "./Breadcrumbs.css";
 
 export default function Breadcrumbs({
@@ -10,10 +10,10 @@ export default function Breadcrumbs({
   productTitle,
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   // read the ?name= param for nicer label
-  const queryName = searchParams.get("name");
+  const queryName = 'searchParams.get("name");'
 
   // if props passed, use them; else derive from URL
   let crumbs = [];
