@@ -346,7 +346,7 @@ const AllSubCategory = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4">
           {visibleCategories.map((cat) => (
             <Link
-              href={`/categories/${cat._id}?name=${cat.Parent_name}`}
+              href={`http://localhost:3000/categories/${cat?._id}?name=${cat?.Parent_name}`}
               key={cat._id}
               className="p-1 md:p-2 border border-blue-900 rounded-lg group"
             >

@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import userImage from "../../Images/DowloadImage/testi6.jpg";
-import bookimage1 from "../../Images/DBS/1.jpg";
+import userImage from "../../app/Images/DowloadImage/testi6.jpg";
+import bookimage1 from "../../app/Images/DBS/1.jpg";
 import {
   ArrowLeft,
   ChevronDown,
@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 import Cart from "../Cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
-import CallBackImg from "../../Images/DBS/DBSLOGO.jpg";
+import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import {
   handleLogout,
   resetState,

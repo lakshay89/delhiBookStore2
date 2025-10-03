@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCartItemsAPI } from "@/app/redux/AddtoCart/apiCartSlice";
 import { createOrder } from "@/app/redux/features/order/orderSlice";
 import toast from "react-hot-toast";
-import CallBackImg from "../../Images/DBS/DBSLOGO.jpg";
+import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import axiosInstance, { serverUrl } from "@/app/redux/features/axiosInstance";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
 import FeedbackModal from "./feedback/page";
@@ -116,6 +116,7 @@ export default function Page() {
       newErrors.paymentMethod = "Payment method is required";
     // if (!formData.phone.length !== 10)
     //   newErrors.phone = "Phone number should be 10 digits";
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
