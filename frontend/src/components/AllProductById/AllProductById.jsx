@@ -25,6 +25,7 @@ import { serverUrl } from "@/app/redux/features/axiosInstance";
 import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
 import { ChevronsLeft, ChevronsRight, Heart } from "lucide-react";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 // import HomeLinking from "@/app/components/HomeLinking/HomeLinking";
 
 const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, setPage }) => {
@@ -106,6 +107,7 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
     if (loading) {
         return (
             <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+                {/* <Breadcrumbs /> */}
                 {Array.from({ length: 8 }).map((_, index) => (
                     <div
                         key={index}
@@ -203,7 +205,8 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
     };
     return (
         <>
-            {products && products.length > 0 && <div className="max-w-7xl mx-auto px-4 py-8">
+            {products && products.length > 0 && 
+            <div className="max-w-7xl mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-5 py-2 bg-gray-200">
                     <div className="text-sm text-gray-600 text-left">
                         {products?.length > 0
@@ -274,7 +277,7 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
                                     </div>
 
                                     {/* Product Image */}
-                                    <Link href={`/shop/${product._id}`}>
+                                    <Link href={`/shop/${product._id}?name=${encodeURIComponent(product?.title || "Product")}`}>
                                         <div className="w-30 h-30 lg:w-50 lg:h-45 md:w-45 md:h-40 flex justify-center m-auto items-center py-2 mb-2 bg-white ">
                                             <Image
                                                 src={

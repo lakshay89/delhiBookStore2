@@ -11,7 +11,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsByCategory } from "@/app/redux/features/productByCategory/productByCategorySlice";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
-export default function AllSubCategory() {
+export default function AllSubCategory({ categoryName: propCategoryName,
+  categorySlug: propCategorySlug,
+  subCategoryName: propSubCategoryName,
+  subCategorySlug: propSubCategorySlug } = {}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -22,11 +25,11 @@ export default function AllSubCategory() {
   const [showAll, setShowAll] = useState(false);
   const timeoutRef = useRef(null);
   const redirectedRef = useRef(false);
-  // const searchParams = useSearchParams();
 
   const initialPage = parseInt(searchParams?.get("page")) || 1;
   const initialLimit = parseInt(searchParams?.get("limit")) || 50;
-  const name = searchParams?.get("name");
+  const nameFromQuery = searchParams?.get("name");
+  const name = propCategoryName || (nameFromQuery ? decodeURIComponent(nameFromQuery) : "Category");
   const sort = searchParams?.get("sort") || false;
   const [page, setPage] = useState(initialPage);
 
@@ -104,7 +107,12 @@ export default function AllSubCategory() {
   return (
     <section className="w-full py-8 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-    <Breadcrumbs  />
+<Breadcrumbs
+        categoryName={propCategoryName || name}
+        categoryId={propCategorySlug}
+        subCategoryName={propSubCategoryName}
+        subCategoryId={propSubCategorySlug}
+      />
 
         {subCategories.length > 0 ? <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -126,7 +134,9 @@ export default function AllSubCategory() {
               {visibleCategories.map((category) => (
                 <Link
                   key={category._id}
-                  href={`/shop/productBysubcategory/${category?._id}`}
+                  href={`/shop/productBysubcategory/${category?._id}?name=${encodeURIComponent(
+                    category?.subCategoryName || "SubCategory"
+                  )}`}
                   className="group block rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden bg-white border"
                 >
                   {/* Image */}

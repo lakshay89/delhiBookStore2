@@ -57,21 +57,21 @@ export async function generateMetadata({ params }) {
 }
 
 // ✅ Page component
-const Page = ({ params }) => {
-  const { mainCategorySlug, subCategorySlug } = params || {};
+const Page = ({ params, searchParams }) => {
+  const { id } = params || {};
+  const nameParam = (searchParams && searchParams.name) || "";
+  const parentName = (searchParams && searchParams.parentName) || "";
+  const parentId = (searchParams && searchParams.parentId) || undefined;
 
-  const categoryName = mainCategorySlug
-    ? mainCategorySlug.replace(/-/g, " ")
-    : "Category";
+  const subCategoryName = nameParam ? String(nameParam).replace(/-/g, " ") : "Subcategory";
 
-  const subCategoryName = subCategorySlug
-    ? subCategorySlug.replace(/-/g, " ")
-    : "Subcategory";
-
+  // Pass parent info to SubCategory
   return (
     <SubCategory
-      categoryName={categoryName}
+      categoryName={parentName ? decodeURIComponent(parentName) : undefined}
+      categorySlug={parentId}
       subCategoryName={subCategoryName}
+      subCategorySlug={id} // pass the id so the component can fetch products/subcategories
     />
   );
 };

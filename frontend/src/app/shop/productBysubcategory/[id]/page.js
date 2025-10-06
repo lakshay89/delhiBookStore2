@@ -25,6 +25,7 @@ import { serverUrl } from "@/app/redux/features/axiosInstance";
 import CallBackImg from "../../../../app/Images/DBS/DBSLOGO.jpg";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
 import { ChevronsLeft, ChevronsRight, Heart } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 // import HomeLinking from "@/app/components/HomeLinking/HomeLinking";
 
 const Page = () => {
@@ -210,6 +211,7 @@ const Page = () => {
     <>
       <ShopBanner />
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs />
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-5 py-2 bg-gray-200">
           <div className="text-sm text-gray-600 text-left">
             {products?.length > 0
@@ -280,7 +282,7 @@ const Page = () => {
                   </div>
 
                   {/* Product Image */}
-                  <Link href={`/shop/${product._id}`}>
+                  <Link href={`/shop/${product._id}?name=${encodeURIComponent(product?.title || "Product")}`}>
                     <div className="w-30 h-30 lg:w-50 lg:h-45 md:w-45 md:h-40 flex justify-center m-auto items-center py-2 mb-2 bg-white ">
                       <Image
                         src={

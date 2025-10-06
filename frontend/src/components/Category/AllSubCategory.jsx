@@ -305,6 +305,8 @@ export default function AllSubCategory() {
               key={category?._id}
               href={`/subCategories/${category?._id}?name=${encodeURIComponent(
                 category.SubCategoryName
+              )}&parentName=${encodeURIComponent(name)}&parentId=${encodeURIComponent(
+                categoryId
               )}`}
               className="group block rounded-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
             >
