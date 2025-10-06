@@ -33,6 +33,7 @@ import {
 } from "@/app/redux/wishlistSlice";
 import ISBNBarcode from "../ISBNBarcode/ISBNBarcode";
 import { useCurrency } from "@/app/redux/hooks/useCurrency";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 export default function ProductDetails() {
   // Api for show ingle prodict data
@@ -188,7 +189,7 @@ export default function ProductDetails() {
     <div className="max-w-7xl mx-auto px-4 pt-8 pb-0">
       {/* Back Button */}
 
-      <div className="mb-6" onClick={() => router.back()}>
+      <div className="mb-6 flex" onClick={() => router.back()}>
         {/* <Link
           href="/pages/shop"
           className="flex items-center text-gray-500 hover:text-gray-900 transition-colors"
@@ -196,7 +197,10 @@ export default function ProductDetails() {
         <ChevronsLeft />
         Back to Books
         {/* </Link> */}
+
       </div>
+                      <Breadcrumbs />
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Left Column - Images */}
