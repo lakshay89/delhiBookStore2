@@ -115,122 +115,183 @@
 //     </nav>
 //   );
 // }
+// ------------------------------------------------------------------------------------------------
+// "use client";
 
-"use client";
+// import Link from "next/link";
+// import { usePathname, useSearchParams } from "next/navigation";
 
+// export default function Breadcrumbs({
+//   categoryName,
+//   categoryId,
+//   subCategoryName,
+//   subCategoryId,
+//   productTitle,
+// }) {
+//   const pathname = usePathname();
+//   const searchParams = useSearchParams();
+
+//   const crumbs = [{ label: "Home", href: "/" }];
+
+//   // helper: make a nice label
+//   const nice = (s) => {
+//     if (!s) return s;
+//     // replace dashes/underscores, decode, trim
+//     const decoded = decodeURIComponent(s).replace(/[-_]/g, " ").trim();
+//     // capitalize words
+//     return decoded
+//       .split(" ")
+//       .map((w) => (w.length ? w[0].toUpperCase() + w.slice(1) : ""))
+//       .join(" ");
+//   };
+
+//   // mapping for known route segments to friendlier labels and links
+//   const labelMap = {
+//     categories: { label: "Categories", href: "/categories" },
+//     shop: { label: "Shop Books", href: "/shop" },
+//     productBysubcategory: { label: "Shop", href: "/shop" },
+//     "product-by-maincategory": { label: "Main Category", href: "/" },
+//     subCategories: { label: "SubCategories", href: "/subCategories" },
+//     wishlist: { label: "Wishlist", href: "/wishlist" },
+//     cart: { label: "Cart", href: "/cart" },
+//   };
+
+//   // Read optional parent info from query if present
+//   const parentNameFromQuery = searchParams?.get("parentName");
+//   const parentIdFromQuery = searchParams?.get("parentId");
+
+//   // If explicit props are provided use them (keeps existing behavior)
+//   if (categoryName || subCategoryName || productTitle) {
+//     if (categoryName) {
+//       crumbs.push({
+//         label: categoryName,
+//         href: categoryId ? `/categories/${categoryId}` : null,
+//       });
+//     }
+
+//     if (subCategoryName) {
+//       crumbs.push({
+//         label: subCategoryName,
+//         href:
+//           subCategoryId && categoryId
+//             ? `/categories/${categoryId}/${subCategoryId}`
+//             : null,
+//       });
+//     }
+
+//     if (productTitle) {
+//       crumbs.push({ label: productTitle, href: null });
+//     }
+//   } else if (parentNameFromQuery || parentIdFromQuery) {
+//     // Build crumbs using parent info from query params when available
+//     if (parentNameFromQuery) {
+//       crumbs.push({ label: nice(parentNameFromQuery), href: parentIdFromQuery ? `/categories/${parentIdFromQuery}` : null });
+//     }
+
+//     const nameParam = searchParams?.get("name");
+//     if (nameParam) {
+//       crumbs.push({ label: nice(nameParam), href: null });
+//     } else {
+//       // fallback to deriving from pathname
+//       const segments = (pathname || "").split("/").filter(Boolean);
+//       segments.forEach((segment, idx) => {
+//         const isIdLike = /^[0-9a-fA-F]{24}$/.test(segment) || /^[0-9]+$/.test(segment);
+//         if (isIdLike) return; // skip raw ids
+//         const href = "/" + segments.slice(0, idx + 1).join("/");
+//         crumbs.push({ label: nice(segment), href: idx === segments.length - 1 ? null : href });
+//       });
+//     }
+//   } else {
+//     // Otherwise derive crumbs from the URL and ?name= query param for nicer labels
+//     const segments = (pathname || "").split("/").filter(Boolean);
+//     const nameParam = searchParams?.get("name");
+
+//     segments.forEach((segment, idx) => {
+//       const isIdLike = /^[0-9a-fA-F]{24}$/.test(segment) || /^[0-9]+$/.test(segment);
+
+//       let label = null;
+//       let href = "/" + segments.slice(0, idx + 1).join("/");
+
+//       if (isIdLike && idx === segments.length - 1 && nameParam) {
+//         label = nice(nameParam);
+//         href = null; // last crumb
+//       } else if (labelMap[segment]) {
+//         label = labelMap[segment].label;
+//         href = idx === segments.length - 1 ? null : labelMap[segment].href || href;
+//       } else {
+//         label = nice(segment);
+//         if (idx === segments.length - 1 && nameParam) {
+//           label = nice(nameParam);
+//           href = null;
+//         } else {
+//           href = idx === segments.length - 1 ? null : href;
+//         }
+//       }
+
+//       if (!isIdLike || (isIdLike && label)) {
+//         crumbs.push({ label, href });
+//       }
+//     });
+//   }
+
+//   return (
+//     <nav aria-label="breadcrumb" className="mb-6">
+//       <ol className="breadcrumb flex flex-wrap items-center gap-2 text-sm text-gray-600">
+//         {crumbs.map((c, i) => {
+//           const isLast = i === crumbs.length - 1;
+//           return (
+//             <li
+//               key={i}
+//               className={`breadcrumb-item ${isLast ? "font-semibold text-gray-900" : ""}`}
+//               aria-current={isLast ? "page" : undefined}
+//             >
+//               {!isLast && c.href ? (
+//                 <Link href={c.href} className="hover:underline">
+//                   {c.label}
+//                 </Link>
+//               ) : (
+//                 <span>{c.label}</span>
+//               )}
+//               {i < crumbs.length - 1 && <span className="mx-1">/</span>}
+//             </li>
+//           );
+//         })}
+//       </ol>
+//     </nav>
+//   );
+// }
+
+// ------------------------------------------------------------------------------------------------------
+
+// new code 
+
+'use client';
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function Breadcrumbs({
-  categoryName,
-  categoryId,
-  subCategoryName,
-  subCategoryId,
-  productTitle,
-}) {
+export default function Breadcrumbs() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const crumbs = [{ label: "Home", href: "/" }];
 
-  // helper: make a nice label
-  const nice = (s) => {
-    if (!s) return s;
-    // replace dashes/underscores, decode, trim
-    const decoded = decodeURIComponent(s).replace(/[-_]/g, " ").trim();
-    // capitalize words
-    return decoded
-      .split(" ")
-      .map((w) => (w.length ? w[0].toUpperCase() + w.slice(1) : ""))
-      .join(" ");
-  };
+  const segments = pathname?.split("/").filter(Boolean) || [];
+  const categoryName = segments[0] ? decodeURIComponent(segments[0]) : null;
+  const subcategoryName = searchParams.get("subcategory");
 
-  // mapping for known route segments to friendlier labels and links
-  const labelMap = {
-    categories: { label: "Categories", href: "/categories" },
-    shop: { label: "Shop Books", href: "/shop" },
-    productBysubcategory: { label: "Shop", href: "/shop" },
-    "product-by-maincategory": { label: "Main Category", href: "/" },
-    subCategories: { label: "SubCategories", href: "/subCategories" },
-    wishlist: { label: "Wishlist", href: "/wishlist" },
-    cart: { label: "Cart", href: "/cart" },
-  };
+  // Home / ART
+  if (categoryName) {
+    crumbs.push({
+      label: categoryName.toUpperCase(),
+      href: `/${encodeURIComponent(categoryName)}`,
+    });
+  }
 
-  // Read optional parent info from query if present
-  const parentNameFromQuery = searchParams?.get("parentName");
-  const parentIdFromQuery = searchParams?.get("parentId");
-
-  // If explicit props are provided use them (keeps existing behavior)
-  if (categoryName || subCategoryName || productTitle) {
-    if (categoryName) {
-      crumbs.push({
-        label: categoryName,
-        href: categoryId ? `/categories/${categoryId}` : null,
-      });
-    }
-
-    if (subCategoryName) {
-      crumbs.push({
-        label: subCategoryName,
-        href:
-          subCategoryId && categoryId
-            ? `/categories/${categoryId}/${subCategoryId}`
-            : null,
-      });
-    }
-
-    if (productTitle) {
-      crumbs.push({ label: productTitle, href: null });
-    }
-  } else if (parentNameFromQuery || parentIdFromQuery) {
-    // Build crumbs using parent info from query params when available
-    if (parentNameFromQuery) {
-      crumbs.push({ label: nice(parentNameFromQuery), href: parentIdFromQuery ? `/categories/${parentIdFromQuery}` : null });
-    }
-
-    const nameParam = searchParams?.get("name");
-    if (nameParam) {
-      crumbs.push({ label: nice(nameParam), href: null });
-    } else {
-      // fallback to deriving from pathname
-      const segments = (pathname || "").split("/").filter(Boolean);
-      segments.forEach((segment, idx) => {
-        const isIdLike = /^[0-9a-fA-F]{24}$/.test(segment) || /^[0-9]+$/.test(segment);
-        if (isIdLike) return; // skip raw ids
-        const href = "/" + segments.slice(0, idx + 1).join("/");
-        crumbs.push({ label: nice(segment), href: idx === segments.length - 1 ? null : href });
-      });
-    }
-  } else {
-    // Otherwise derive crumbs from the URL and ?name= query param for nicer labels
-    const segments = (pathname || "").split("/").filter(Boolean);
-    const nameParam = searchParams?.get("name");
-
-    segments.forEach((segment, idx) => {
-      const isIdLike = /^[0-9a-fA-F]{24}$/.test(segment) || /^[0-9]+$/.test(segment);
-
-      let label = null;
-      let href = "/" + segments.slice(0, idx + 1).join("/");
-
-      if (isIdLike && idx === segments.length - 1 && nameParam) {
-        label = nice(nameParam);
-        href = null; // last crumb
-      } else if (labelMap[segment]) {
-        label = labelMap[segment].label;
-        href = idx === segments.length - 1 ? null : labelMap[segment].href || href;
-      } else {
-        label = nice(segment);
-        if (idx === segments.length - 1 && nameParam) {
-          label = nice(nameParam);
-          href = null;
-        } else {
-          href = idx === segments.length - 1 ? null : href;
-        }
-      }
-
-      if (!isIdLike || (isIdLike && label)) {
-        crumbs.push({ label, href });
-      }
+  // Home / ART / Subcategory
+  if (subcategoryName) {
+    crumbs.push({
+      label: decodeURIComponent(subcategoryName),
+      href: null, // current page
     });
   }
 
@@ -260,3 +321,4 @@ export default function Breadcrumbs({
     </nav>
   );
 }
+

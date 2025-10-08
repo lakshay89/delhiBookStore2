@@ -308,7 +308,7 @@ const Shop = () => {
                       )}
                     </div>
 
-                    <Link href={`/shop/${product._id}`}>
+                    <Link href={`/shop/${product._id}?name=${encodeURIComponent(product.title)}`}>
                       <div className="w-30 h-30 lg:w-50 lg:h-45 md:w-45 md:h-40 flex justify-center m-auto items-center py-2 mb-2 bg-white">
                         <Image
                           src={
@@ -326,7 +326,7 @@ const Shop = () => {
                   </div>
 
                   <div className="w-full">
-                    <Link href={`/shop/${product._id}`}>
+                    <Link href={`/shop/${product._id}?name=${encodeURIComponent(product.title)}`}>
                       <h3
                         style={{
                           background:

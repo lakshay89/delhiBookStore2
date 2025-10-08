@@ -303,11 +303,12 @@ export default function AllSubCategory() {
           {visibleCategories.map((category) => (
             <Link
               key={category?._id}
-              href={`/subCategories/${category?._id}?name=${encodeURIComponent(
-                category.SubCategoryName
-              )}&parentName=${encodeURIComponent(name)}&parentId=${encodeURIComponent(
-                categoryId
-              )}`}
+              // href={`/subCategories/${category?._id}?name=${encodeURIComponent(
+              //   category.SubCategoryName
+              // )}&parentName=${encodeURIComponent(name)}&parentId=${encodeURIComponent(
+              //   categoryId
+              // )}`}
+              href={`/${name}/${category?._id}?subcategory=${encodeURIComponent(category.SubCategoryName)}`}
               className="group block rounded-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
             >
               <div className="relative w-full h-40 sm:h-56">

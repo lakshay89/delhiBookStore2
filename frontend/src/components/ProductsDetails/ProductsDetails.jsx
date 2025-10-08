@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import { addToCart } from "@/app/redux/AddtoCart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance, { serverUrl } from "@/app/redux/features/axiosInstance";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import CallBackImg from "../../app/Images/DBS/DBSLOGO.jpg";
 import { Parser } from "html-to-react";
 import {
@@ -37,7 +37,12 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 export default function ProductDetails() {
   // Api for show ingle prodict data
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
+  const category = searchParams.get("category");
+  const subcategory = searchParams.get("subcategory");
 
+  console.log("------------------------" + name + category + subcategory);
   const [activeTab, setActiveTab] = useState("details");
   const htmlParser = new Parser();
   const dispatch = useDispatch();
@@ -150,16 +155,18 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const params = useParams();
-  const id = params.id;
-
+  const id = params?.id;
+  console.log("idididididididididididididididididididididididididididididid=>", id)
   useEffect(() => {
     if (!id) return;
-
+    // alert("id")
     const fetchProductDetail = async () => {
       try {
+
         const response = await axiosInstance.get(`/product/get-product/${id}`);
+        console.log("Product data:=>", response);
         setBook(response.data.product);
-        // console.log("Product data:=>", response.data.product);
+
       } catch (err) {
         setError("Failed to load product details. Please try again later.");
       } finally {
@@ -199,7 +206,7 @@ export default function ProductDetails() {
         {/* </Link> */}
 
       </div>
-                      <Breadcrumbs />
+      <Breadcrumbs />
 
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -318,11 +325,10 @@ export default function ProductDetails() {
           {book?.stock > 0 && (
             <div className="flex flex-col space-y-3">
               <button
-                className={`${
-                  cartItems.some((item) => item.id === book.id)
-                    ? "w-full bg-black cursor-pointer text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center"
-                    : "w-full blue-bg cursor-pointer hover:bg-yellow-bg text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center"
-                }`}
+                className={`${cartItems.some((item) => item.id === book.id)
+                  ? "w-full bg-black cursor-pointer text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center"
+                  : "w-full blue-bg cursor-pointer hover:bg-yellow-bg text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center"
+                  }`}
                 onClick={() => handleAddToCart(book)}
               >
                 {cartItems.some((item) => item.id === book.id) ? (

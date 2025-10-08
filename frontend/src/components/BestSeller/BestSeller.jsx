@@ -229,7 +229,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
                   {inWishlist ? "❤️" : <Heart size={16} />}
                 </div>
 
-                <Link href={`/shop/${product._id}`}>
+                <Link href={`/bestSellerbook/${product._id}?name=${encodeURIComponent(product.title)}`}>
                   <div className="h-35 flex justify-center m-auto items-center">
                     <Image
                       src={
@@ -249,7 +249,7 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
               {/* Product Details */}
               <div className="w-full md:w-2/3 flex flex-col justify-between">
                 <div>
-                  <Link href={`/shop/${product._id}`}>
+                  <Link href={`/bestSellerbook/${product._id}?name=${encodeURIComponent(product.title)}`}>
                     <h3 className="mt-2 text-sm md:text-md font-normal md:font-semibold line-clamp-2 hover:underline">
                       {product.title}
                     </h3>

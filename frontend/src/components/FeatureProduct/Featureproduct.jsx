@@ -220,7 +220,7 @@ const Featureproduct = ({ productlength = 8, btnlength = 4 }) => {
                 </div>
 
                 {/* Product Image */}
-                <Link href={`/shop/${product._id}`}>
+                <Link href={`/shop/${product._id}?name=${encodeURIComponent(product.title)}`}>
                   <div className="w-30 h-50 lg:w-40 md:w-35 flex justify-center m-auto p-2 items-center mb-2 bg-white">
                     <Image
                       src={
@@ -239,7 +239,7 @@ const Featureproduct = ({ productlength = 8, btnlength = 4 }) => {
 
               {/* Product Details */}
               <div className="w-full">
-                <Link href={`/shop/${product._id}`}>
+                <Link href={`/shop/${product._id}?name=${encodeURIComponent(product.title)}`}>
                   <h3 className="mt-2 text-sm md:text-md font-normal md:font-semibold line-clamp-2 hover:underline">
                     {product.title}
                   </h3>

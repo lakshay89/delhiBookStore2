@@ -33,6 +33,10 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
     // const { id: subcategoryId } = useParams();
     const subcategoryId = categoryId
     const router = useRouter();
+    // const router = useRouter();
+  const { id, name, category, subcategory } = Object.fromEntries(
+    new URLSearchParams(router?.asPath?.split("?")[1] || "")
+  );
     const { cartItems } = useSelector((state) => state.cart);
     const { items: apiCartItems } = useSelector((state) => state.apiCart);
     const { currency, convert } = useCurrency();
@@ -205,29 +209,29 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
     };
     return (
         <>
-            {products && products.length > 0 && 
-            <div className="max-w-7xl mx-auto px-4 py-8">
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-5 py-2 bg-gray-200">
-                    <div className="text-sm text-gray-600 text-left">
-                        {products?.length > 0
-                            ? `Showing ${products?.length} products`
-                            : "No products found"}
+            {products && products.length > 0 &&
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-5 py-2 bg-gray-200">
+                        <div className="text-sm text-gray-600 text-left">
+                            {products?.length > 0
+                                ? `Showing ${products?.length} products`
+                                : "No products found"}
+                        </div>
+                        <div>
+                            <span>Sort by:</span>
+                            <select
+                                className="p-2 text-black focus:outline-none"
+                                value={sortBy}
+                                onChange={handleSortChange}
+                            >
+                                <option value="latest">Latest</option>
+                                {/* <option value="popularity">Popularity</option> */}
+                                <option value="lowToHigh">Price: Low to High</option>
+                                <option value="highToLow">Price: High to Low</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <span>Sort by:</span>
-                        <select
-                            className="p-2 text-black focus:outline-none"
-                            value={sortBy}
-                            onChange={handleSortChange}
-                        >
-                            <option value="latest">Latest</option>
-                            {/* <option value="popularity">Popularity</option> */}
-                            <option value="lowToHigh">Price: Low to High</option>
-                            <option value="highToLow">Price: High to Low</option>
-                        </select>
-                    </div>
-                </div>
-            </div>}
+                </div>}
             {/* <div className="max-w-7xl mx-auto px-4 py-4">
         <HomeLinking category={`products`} />
       </div> */}
@@ -277,7 +281,9 @@ const AllProductById = ({ categoryId, initialPage, initialLimit, sort, page, set
                                     </div>
 
                                     {/* Product Image */}
-                                    <Link href={`/shop/${product._id}?name=${encodeURIComponent(product?.title || "Product")}`}>
+                                    <Link
+                                        href={`/shop/${product._id}?name=${encodeURIComponent(product?.title || "Product")}&category=${encodeURIComponent(product?.category || "Shop")}&subcategory=${encodeURIComponent(product?.subcategory || "")}`}
+                                    >
                                         <div className="w-30 h-30 lg:w-50 lg:h-45 md:w-45 md:h-40 flex justify-center m-auto items-center py-2 mb-2 bg-white ">
                                             <Image
                                                 src={
